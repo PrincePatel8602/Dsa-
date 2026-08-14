@@ -8,7 +8,7 @@ public:
         int ans=INT_MIN;
         while( r<n && l<=r){
            
-            if(mp.count(s[r]) && mp[s[r]]>=2){
+            if( mp[s[r]]>=2){
                 mp[s[l]]--;
                 l++;
 
