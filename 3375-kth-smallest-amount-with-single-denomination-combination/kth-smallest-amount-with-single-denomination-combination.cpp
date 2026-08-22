@@ -1,57 +1,45 @@
 class Solution {
 public:
-    using ll = long long;
-
-    ll getLCM(ll a, ll b, ll limit) {
-        ll g = gcd(a, b);
-
-        if (a / g > limit / b) return limit + 1;
-        return (a / g) * b;
-    }
-
-    ll countValid(ll x, vector<int>& coins) {
-        int n = coins.size();
-        ll count = 0;
-
-        for (int mask = 1; mask < (1 << n); mask++) {
-            ll lcm = 1;
-            int bits = 0;
-            bool valid = true;
-
-            for (int i = 0; i < n; i++) {
-                if (mask & (1 << i)) {
-                    bits++;
-
-                    lcm = getLCM(lcm, coins[i], x);
-                    if (lcm > x) {
-                        valid = false;
-                        break;
+    long long countsmaller(long long mid,vector<int>&coins){
+        long long ans=0;
+        int n=coins.size();
+        for(long long  e=1;e<(1<<n);e++){
+            long long order=0;
+            long long lcm=0;
+            for(int i=0;i<n;i++){
+                if(e &(1LL<<i)){
+                    order++;
+                    if(lcm==0){
+                        lcm=coins[i];
+                    }else{
+                        lcm=(lcm*coins[i])/(gcd(lcm,coins[i]));
                     }
                 }
             }
-
-            if (!valid) continue;
-
-            ll ways = x / lcm;
-
-            if (bits & 1) count += ways;
-            else count -= ways;
+            if(order%2==0){
+                ans-=mid/lcm;
+            }else{
+                ans+=mid/lcm;
+            }
+            
         }
-
-        return count;
+         return ans;
     }
-
+   
     long long findKthSmallest(vector<int>& coins, int k) {
-        ll low = 1;
-        ll high = 1LL * (*min_element(coins.begin(), coins.end())) * k;
+        long long res=-1;
+        long long l=1;
+        long long h=(long long )(*max_element(coins.begin(),coins.end()))*k;
+        while(l<=h){
+            long long mid=l+(h-l)/2;
+            if(countsmaller(mid,coins)>=k){
+                res=mid;
+                h=mid-1;
 
-        while (low < high) {
-            ll mid = low + (high - low) / 2;
-
-            if (countValid(mid, coins) >= k) high = mid;
-            else low = mid + 1;
+            }else{
+                l=mid+1;
+            }
         }
-
-        return low;
-    }
+        return res;
+     }
 };
