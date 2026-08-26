@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<int>seg;
+    // for buiding segment tree//
     void build(int i,int l,int r,vector<int>&heights){
         if(l==r){
             seg[i]=l;
@@ -13,6 +14,7 @@ public:
         int right=seg[2*i+2];
         seg[i]=(heights[left]>=heights[right])?left:right;
     }
+    // for finding maximum from certain range//
     int query(int s,int e,int i,int l,int r,vector<int>&heights){
         if(r<s || l>e){
             return -1;
@@ -56,6 +58,7 @@ public:
             int r=n-1;
             int resi=-1;
             int target=max(heights[mini],heights[maxi]);
+            // this bs is used for finding max from l to mid if not possible then go mid+1 else push -1//
             while(l<=r){
                 int mid=l+(r-l)/2;
                 int idx=RMIQ(heights,n,l,mid);
