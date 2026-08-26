@@ -1,7 +1,7 @@
 class Solution {
 public:
     string shortestBeautifulSubstring(string s, int k) {
-        string sp="";
+        string sp=s;
         
         int  one=0;
         int zero=0;
@@ -14,20 +14,38 @@ public:
             }
             r++;
             if(one==k){
-                while(l<r && s[l]=='0'){
+                if(r-l<sp.size()){
+                    sp=s.substr(l,r-l);
+                }else if(r-l==sp.size()){
+                    sp=min(sp,s.substr(l,r-l));
+                }
+                while(one>=k){
+                    if(s[l]=='1'){
+                       
+                        one--;
+                    }
                     l++;
+                    if(one==k && r-l<sp.size()){
+                    sp=s.substr(l,r-l);
+                }else if(one==k && r-l==sp.size()){
+                    sp=min(sp,s.substr(l,r-l));
                 }
-                string curr=s.substr(l,r-l);
-                if(sp=="" || curr.size()<sp.size()){
-                    sp=curr;
-                }else if(curr.size()==sp.size()){
-                    sp=min(sp,curr);
+                    
                 }
-                one--;
-                l++;
+            }
+
+        }
+        int onep=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='1'){
+                onep++;
             }
         }
-        return sp;
-      
+        if(sp==s && onep==k){
+            return sp;
+        }else if(sp!=s){
+            return sp;
+        }
+        return "";
     }
 };
