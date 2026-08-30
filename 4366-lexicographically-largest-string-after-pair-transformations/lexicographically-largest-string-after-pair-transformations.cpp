@@ -7,8 +7,8 @@ public:
             string ap="";
             int j=25;
             while(j>=0){
-                if(nums[i]>=pow(2,j)){
-                   nums[i]-=pow(2,j);
+                if(nums[i]>=1LL<<j){
+                   nums[i]-=1LL<<j;
                    if(j!=25){
                    ap+=char('a'+j);
                    j--;
