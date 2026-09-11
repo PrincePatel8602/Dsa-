@@ -14,8 +14,8 @@ Spreadsheet(int rows) {
     
     void resetCell(string cell) {
          int col=int(cell[0]-'A');
-        int row=stoi(cell.substr(1,cell.size()-1))-1;
-        spread[row][col]=0;
+        int row=stoi(cell.substr(1,cell.size()-1));
+        spread[row-1][col]=0;
     }
     
     int getValue(string formula) {
@@ -27,8 +27,8 @@ Spreadsheet(int rows) {
             
             if(a[0] >= 'A' && a[0] <= 'Z') {
                 int col = a[0] - 'A';
-                int row = stoi(a.substr(1))-1;
-                sum += spread[row][col];
+                int row = stoi(a.substr(1));
+                sum += spread[row-1][col];
             }
             else {
                 sum += stoi(a);
