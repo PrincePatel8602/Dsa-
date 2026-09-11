@@ -11,9 +11,9 @@ class Solution {
            
             if(minSped >=speed[i-1] && position[i]-position[i-1] > distance){
 
-                 if(speed[i-1]<minSped){
+              
                 minSped= speed[i-1];
-                 }
+                
                 count++;
             }
         }
