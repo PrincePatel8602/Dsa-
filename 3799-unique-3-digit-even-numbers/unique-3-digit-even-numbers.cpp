@@ -1,33 +1,32 @@
 class Solution {
 public:
-    int totalNumbers(vector<int>& digits) {
-        int n=digits.size();
-       unordered_set<string>mp;
-        for(int i=0;i<n;i++){
-            if(digits[i]==0){
-                continue;
-            }
-            string s="";
-            s+=char(digits[i]);
-           for(int j=0;j<n;j++){
-            if(j==i){
-                continue;
-            }
-            string sp="";
-            sp+=s;
-            sp+=char(digits[j]);
-            for(int k=0;k<n;k++){
-               if(k==i || k==j  || digits[k]%2!=0){
-                continue;
-               }
-               string sc="";
-               sc+=sp;
-               sc+=char(digits[k]);
-               mp.insert(sc);
-               
-            }
-           }
+    set<string>sp;
+    void fun(vector<int>& digits,string s,vector<int>&used){
+        
+        if (s.size() == 3){
+            if((s.back() - '0') % 2 == 0){
+           sp.insert(s);
+            
         }
-        return mp.size();
+            return;
+        }
+    
+        for(int j=0;j<digits.size();j++){
+            if(used[j]==1){
+                continue;
+            }
+            if(digits[j]==0 && s.size()==0){
+                continue;
+            }
+
+            used[j]=1;
+            fun(digits,s+char(digits[j]+'0'),used);
+            used[j]=0;
+        }
+    }
+    int totalNumbers(vector<int>& digits) {
+        vector<int>used(digits.size(),0);
+        fun(digits,"",used);
+        return sp.size();
     }
 };
