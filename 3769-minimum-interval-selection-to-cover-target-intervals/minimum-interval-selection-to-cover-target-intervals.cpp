@@ -37,7 +37,7 @@ public:
                     i++;
                 }
 
-                if (nextmax <= oldmax) {
+                if (nextmax == oldmax) {
                     return -1;
                 }
 
